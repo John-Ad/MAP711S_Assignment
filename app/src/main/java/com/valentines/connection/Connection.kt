@@ -1,4 +1,4 @@
-package com.example.valentines_garage
+package com.valentines.connection
 
 class Connection {
     private val BASE_URL: String = ""

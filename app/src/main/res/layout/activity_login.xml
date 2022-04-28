@@ -10,8 +10,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/garage_name"
-        android:textStyle="bold"
         android:textSize="30sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,7 +20,7 @@
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="300dp"
-        android:layout_height="400dp"
+        android:layout_height="wrap_content"
         android:background="@color/tile_background"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -31,34 +31,33 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="50dp"
-            android:layout_gravity="center_horizontal"
             android:text="Login"
             android:textSize="20sp"
-            android:textStyle="bold"
-            />
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
             android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
             android:text="Username:" />
 
         <EditText
             android:id="@+id/edt_login_username"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
             android:layout_gravity="center"
+            android:layout_marginBottom="30dp"
             android:inputType="text" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
             android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
             android:text="Password:" />
 
         <EditText
@@ -75,8 +74,19 @@
             android:layout_height="40dp"
             android:layout_gravity="center"
             android:background="@color/button_color"
-            android:textColor="@color/white"
             android:text="login"
+            android:textColor="@color/white"
+            app:backgroundTint="@color/button_color" />
+
+        <Button
+            android:id="@+id/btn_goto_jobs"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="@color/button_color"
+            android:text="Jobs"
+            android:textColor="@color/white"
             app:backgroundTint="@color/button_color" />
     </LinearLayout>
 
