@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Valentines_Garage"
-        tools:replace="android:appComponentFactory">
+        >
         <activity android:name=".MainActivity"></activity>
         <activity
             android:name=".LoginActivity"
