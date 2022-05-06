@@ -6,5 +6,5 @@ import retrofit2.Call
 
 interface APIInterface {
     @GET("/jobs/all")
-    fun getAllJobs(): Call<List<Job>>
+    fun getAllJobs(): Call<MutableList<Job>>
 }
