@@ -1,8 +1,10 @@
 package com.example.valentines_garage
 
-import android.app.Activity
 import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.valentines.connection.APIClient
@@ -12,22 +14,30 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class JobsActivity : Activity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_jobs)
+class JobsFragment : Fragment() {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_jobs, container, false)
+    }
 
+    override fun onStart() {
+        super.onStart()
         init()
     }
 
     //----   INIT   ----
     fun init() {
 
+        val view: View? = view  // property access of getView()
+
         // show that data is loading
-        val prgBar: ProgressBar = findViewById<ProgressBar>(R.id.prg_jobs)
+        val prgBar: ProgressBar = view!!.findViewById<ProgressBar>(R.id.prg_jobs)
         prgBar.visibility = View.VISIBLE
 
-        val txtView: TextView = findViewById(R.id.txt_job_temp)
+        val txtView: TextView = view!!.findViewById(R.id.txt_job_temp)
 
         // get data from server
         val apiInterface: APIInterface = APIClient.getInstance().create(APIInterface::class.java)
