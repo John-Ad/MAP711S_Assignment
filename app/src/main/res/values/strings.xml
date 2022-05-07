@@ -7,6 +7,13 @@
     <string name="nav_reports">Reports</string>
     <string name="nav_logout">Logout</string>
 
+    <string name="tab_desc">Overview</string>
+    <string name="tab_tasks">Tasks</string>
+    <string name="tab_users">Users</string>
+
+
     <string name="nav_open_drawer">Open navigation drawer</string>
     <string name="nav_close_drawer">Close navigation drawer</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

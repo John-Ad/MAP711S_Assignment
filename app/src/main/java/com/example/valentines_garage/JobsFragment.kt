@@ -79,8 +79,9 @@ class JobsFragment : Fragment() {
     private fun setListViewItemClickListener() {
         requireView().findViewById<ListView>(R.id.list_jobs).onItemClickListener =
             AdapterView.OnItemClickListener { adapterView, view, index, id ->
-                // TODO:  send user to job activity
-                showToast("coming soon!")
+                val ft = requireActivity().supportFragmentManager.beginTransaction()
+                ft.replace(R.id.content_frame, JobFragment())
+                ft.commit()
             }
     }
 
