@@ -79,8 +79,18 @@ class JobsFragment : Fragment() {
     private fun setListViewItemClickListener() {
         requireView().findViewById<ListView>(R.id.list_jobs).onItemClickListener =
             AdapterView.OnItemClickListener { adapterView, view, index, id ->
+
+                // get job details
+                val job: Job = (adapterView.getItemAtPosition(index) as Job)
+
+                var bundle: Bundle = Bundle()
+                bundle.putParcelable(JobFragment.JOB, job)
+
+                val jobFragment: JobFragment = JobFragment()
+                jobFragment.arguments = bundle
+
                 val ft = requireActivity().supportFragmentManager.beginTransaction()
-                ft.replace(R.id.content_frame, JobFragment())
+                ft.replace(R.id.content_frame, jobFragment)
                 ft.commit()
             }
     }
