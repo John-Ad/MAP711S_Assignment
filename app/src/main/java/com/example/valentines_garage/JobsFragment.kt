@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import com.example.valentines_garage.job_related_fragments.JobAddFragment
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.valentines.connection.APIClient
 import com.valentines.connection.APIInterface
 import com.valentines.connection.adapters.JobsListAdapter
@@ -36,6 +38,20 @@ class JobsFragment : Fragment() {
     private fun init() {
         getJobsData()
         setListViewItemClickListener()
+        setButtonListeners()
+    }
+
+    //----   SET BUTTON LISTENERS   ----
+    private fun setButtonListeners(){
+
+        // set FAB listener
+        val view:View=requireView()
+        view.findViewById<FloatingActionButton>(R.id.fab_add_run).setOnClickListener{
+            val ft = requireActivity().supportFragmentManager.beginTransaction()
+            ft.replace(R.id.content_frame, JobAddFragment(),null)
+            ft.addToBackStack(null)
+            ft.commit()
+        }
     }
 
     //----   GET JOBS DATA   ----
