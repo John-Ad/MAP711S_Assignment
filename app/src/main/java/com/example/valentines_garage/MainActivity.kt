@@ -57,6 +57,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         if (fragment != null) {
             val ft = supportFragmentManager.beginTransaction()
             ft.replace(R.id.content_frame, fragment)
+            ft.addToBackStack(null)
             ft.commit()
 
             val drawer: DrawerLayout = findViewById(R.id.drwr_main)

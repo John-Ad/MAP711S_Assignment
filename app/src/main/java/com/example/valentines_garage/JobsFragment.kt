@@ -1,6 +1,7 @@
 package com.example.valentines_garage
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +21,9 @@ class JobsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        Log.v("FRAG CREATED", "Jobs Fragment")
+
         return inflater.inflate(R.layout.fragment_jobs, container, false)
     }
 
@@ -90,7 +94,8 @@ class JobsFragment : Fragment() {
                 jobFragment.arguments = bundle
 
                 val ft = requireActivity().supportFragmentManager.beginTransaction()
-                ft.replace(R.id.content_frame, jobFragment)
+                ft.replace(R.id.content_frame, jobFragment, job.getJobID())
+                ft.addToBackStack(job.getJobID())
                 ft.commit()
             }
     }

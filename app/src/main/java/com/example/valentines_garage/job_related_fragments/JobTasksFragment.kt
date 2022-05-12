@@ -31,6 +31,8 @@ class JobTasksFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        Log.v("FRAG CREATED", "Job Tasks Fragment")
+
         // get job id from args passed
         if (arguments != null) {
             job = arguments?.getParcelable(JobFragment.JOB)!!
@@ -44,7 +46,15 @@ class JobTasksFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
+        setListViewItemClickListener()
         getTasksData()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        Log.v("FRAG DESTROYED", "Job Tasks Fragment")
+
     }
 
     //----   GET TASKS DATA   ----
@@ -105,12 +115,23 @@ class JobTasksFragment : Fragment() {
 
     //----   SET LISTVIEW ITEM CLICK LISTENER   ----
     private fun setListViewItemClickListener() {
-//        requireView().findViewById<ListView>(R.id.list_jobs).onItemClickListener =
-//            AdapterView.OnItemClickListener { adapterView, view, index, id ->
-//                val ft = requireActivity().supportFragmentManager.beginTransaction()
-//                ft.replace(R.id.content_frame, JobFragment())
-//                ft.commit()
-//            }
+        requireView().findViewById<ListView>(R.id.list_tasks).onItemClickListener =
+            AdapterView.OnItemClickListener { adapterView, view, index, id ->
+
+                // get task details
+                val task: Task = (adapterView.getItemAtPosition(index) as Task)
+
+                var bundle: Bundle = Bundle()
+                bundle.putParcelable(TaskViewFragment.TASK, task)
+
+                val taskViewFragment = TaskViewFragment()
+                taskViewFragment.arguments = bundle
+
+                val ft = requireActivity().supportFragmentManager.beginTransaction()
+                ft.replace(R.id.content_frame, taskViewFragment, task.getTaskID().toString())
+                ft.addToBackStack(task.getTaskID().toString())
+                ft.commit()
+            }
     }
 
     //----   SET LISTVIEW DATA   ----
