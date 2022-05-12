@@ -5,10 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.*
 import com.valentines.connection.APIClient
 import com.valentines.connection.APIInterface
+import com.valentines.connection.adapters.JobsListAdapter
 import com.valentines.connection.models.Job
 import retrofit2.Call
 import retrofit2.Callback
@@ -29,45 +29,81 @@ class JobsFragment : Fragment() {
     }
 
     //----   INIT   ----
-    fun init() {
+    private fun init() {
+        getJobsData()
+        setListViewItemClickListener()
+    }
 
-        val view: View? = view  // property access of getView()
-
+    //----   GET JOBS DATA   ----
+    private fun getJobsData() {
         // show that data is loading
-        val prgBar: ProgressBar = view!!.findViewById<ProgressBar>(R.id.prg_jobs)
-        prgBar.visibility = View.VISIBLE
-
-        val txtView: TextView = view!!.findViewById(R.id.txt_job_temp)
+        setLoading(true)
 
         // get data from server
         val apiInterface: APIInterface = APIClient.getInstance().create(APIInterface::class.java)
-        val call: Call<List<Job>> = apiInterface.getAllJobs()
-        call.enqueue(object : Callback<List<Job>> {
-            override fun onResponse(call: Call<List<Job>>, response: Response<List<Job>>) {
-                var jobs: List<Job>? = response.body()
-                var jobNames: String = ""
+        val call: Call<MutableList<Job>> = apiInterface.getAllJobs()
+        call.enqueue(object : Callback<MutableList<Job>> {
+            override fun onResponse(
+                call: Call<MutableList<Job>>,
+                response: Response<MutableList<Job>>
+            ) {
+                var jobs: MutableList<Job>? = response.body()
 
                 if (jobs != null) {
-                    for (job in jobs) {
-                        jobNames += job.getName() + "\n"
-                    }
+                    setListViewData(jobs)
                 } else {
-                    jobNames = "You fucking suck"
+                    showToast("Failed to load data, try again later")
                 }
 
-                txtView.text = jobNames
-
-                prgBar.visibility = View.GONE
+                setLoading(false)
             }
 
-            override fun onFailure(call: Call<List<Job>>, t: Throwable) {
-                txtView.text = "you really fucking suck"
-                prgBar.visibility = View.GONE
-
+            override fun onFailure(call: Call<MutableList<Job>>, t: Throwable) {
+                setLoading(false)
+                showToast("Failed to load data, try again later")
                 call.cancel()
             }
 
         })
+    }
 
+    //----   SET LOADING   ----
+    private fun setLoading(loading: Boolean) {
+        val view: View? = view  // property access of getView()
+        val prgBar: ProgressBar = view!!.findViewById<ProgressBar>(R.id.prg_jobs)
+
+        prgBar.visibility = if (loading) View.VISIBLE else View.GONE
+    }
+
+    //----   SET LISTVIEW ITEM CLICK LISTENER   ----
+    private fun setListViewItemClickListener() {
+        requireView().findViewById<ListView>(R.id.list_jobs).onItemClickListener =
+            AdapterView.OnItemClickListener { adapterView, view, index, id ->
+
+                // get job details
+                val job: Job = (adapterView.getItemAtPosition(index) as Job)
+
+                var bundle: Bundle = Bundle()
+                bundle.putParcelable(JobFragment.JOB, job)
+
+                val jobFragment: JobFragment = JobFragment()
+                jobFragment.arguments = bundle
+
+                val ft = requireActivity().supportFragmentManager.beginTransaction()
+                ft.replace(R.id.content_frame, jobFragment)
+                ft.commit()
+            }
+    }
+
+    //----   SET LISTVIEW DATA   ----
+    private fun setListViewData(data: MutableList<Job>) {
+        var adapter = JobsListAdapter(requireContext(), R.layout.job_record, data)
+        val listView: ListView = requireView().findViewById(R.id.list_jobs)
+        listView.adapter = adapter
+    }
+
+    //----   SHOW TOAST   ----
+    private fun showToast(message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
     }
 }

@@ -4,16 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".JobsFragment">
-
-    <TextView
-        android:id="@+id/txt_job_temp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    tools:context=".job_related_fragments.JobTasksFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,18 +12,19 @@
         android:orientation="vertical"
         android:padding="10dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="20dp"
-            android:text="Jobs"
-            android:textSize="20dp"
-            android:textStyle="bold" />
+        <!--        <TextView-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_gravity="center"-->
+        <!--            android:layout_marginTop="16dp"-->
+        <!--            android:layout_marginBottom="20dp"-->
+        <!--            android:text="All Tasks"-->
+        <!--            android:textSize="20dp"-->
+        <!--            android:textStyle="bold" />-->
 
         <TableLayout
-            android:id="@+id/tbl_jobs"
+            android:id="@+id/tbl_tasks"
+            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -45,34 +37,27 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="20"
-                    android:text="ID"
-                    android:textAlignment="center"
-                    android:gravity="center_horizontal" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="36"
+                    android:layout_weight="40"
+                    android:gravity="center_horizontal"
                     android:text="Name"
-                    android:textAlignment="center"
-                    android:gravity="center_horizontal" />
+                    android:textAlignment="center" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="22"
-                    android:text="Due"
-                    android:textAlignment="center"
-                    android:gravity="center_horizontal" />
+                    android:layout_weight="40"
+                    android:gravity="center_horizontal"
+                    android:text="Assigned to"
+                    android:textAlignment="center" />
+
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="22"
-                    android:text="Added"
-                    android:textAlignment="center"
-                    android:gravity="center_horizontal" />
+                    android:layout_weight="20"
+                    android:gravity="center_horizontal"
+                    android:text="Completed"
+                    android:textAlignment="center" />
             </TableRow>
         </TableLayout>
 
@@ -84,13 +69,13 @@
             android:background="#888" />
 
         <ListView
-            android:id="@+id/list_jobs"
+            android:id="@+id/list_tasks"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
     </LinearLayout>
 
     <ProgressBar
-        android:id="@+id/prg_jobs"
+        android:id="@+id/prg_tasks"
         android:layout_width="60dp"
         android:layout_height="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
