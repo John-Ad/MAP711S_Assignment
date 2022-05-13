@@ -1,10 +1,7 @@
 package com.valentines.connection
 
 import com.google.gson.JsonObject
-import com.valentines.connection.models.ClientDetails
-import com.valentines.connection.models.Employee
-import com.valentines.connection.models.Job
-import com.valentines.connection.models.Task
+import com.valentines.connection.models.*
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -22,5 +19,5 @@ interface APIInterface {
     fun getClientDetails(): Call<MutableList<ClientDetails>>
 
     @POST("/jobs/add")
-    fun addJob(@Body json: JsonObject): Call<String>
+    fun addJob(@Body json: JsonObject): Call<PostResponse>
 }

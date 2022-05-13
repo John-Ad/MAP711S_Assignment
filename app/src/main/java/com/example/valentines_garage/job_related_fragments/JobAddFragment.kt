@@ -14,6 +14,7 @@ import com.google.gson.JsonObject
 import com.valentines.connection.APIClient
 import com.valentines.connection.APIInterface
 import com.valentines.connection.models.ClientDetails
+import com.valentines.connection.models.PostResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -172,6 +173,13 @@ class JobAddFragment : Fragment() {
         addJob(jsonData)
     }
 
+    //----   CLEAR INPUT   ----
+    private fun clearInput() {
+        requireView().findViewById<EditText>(R.id.edt_job_name).setText("")
+        requireView().findViewById<EditText>(R.id.edt_job_desc).setText("")
+        requireView().findViewById<EditText>(R.id.edt_job_completion_date).setText("")
+    }
+
     //----   ADD JOB   ----
     private fun addJob(data: JsonObject) {
         val apiInterface: APIInterface = APIClient.getInstance().create(APIInterface::class.java)
@@ -179,23 +187,24 @@ class JobAddFragment : Fragment() {
 
         Log.v("FUCK", "SO ASS")
 
-        call.enqueue(object : Callback<String> {
+        call.enqueue(object : Callback<PostResponse> {
             override fun onResponse(
-                call: Call<String>,
-                response: Response<String>
+                call: Call<PostResponse>,
+                response: Response<PostResponse>
             ) {
-                var res: String? = response.body()
+                var res: PostResponse? = response.body()
 
                 if (res != null) {
-                    showToast(res)
+                    clearInput()
+                    showToast(res.getStatus())
                 } else {
-                    showToast("Failed to add job, try again later"+response.body().toString())
+                    showToast("Failed to add job, try again later" + response.body().toString())
                 }
 
                 setLoading(false)
             }
 
-            override fun onFailure(call: Call<String>, t: Throwable) {
+            override fun onFailure(call: Call<PostResponse>, t: Throwable) {
                 setLoading(false)
                 showToast("Failed to add job, try again later" + t.message)
                 call.cancel()
