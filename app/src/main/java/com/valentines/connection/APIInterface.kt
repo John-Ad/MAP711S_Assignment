@@ -12,8 +12,11 @@ interface APIInterface {
     @GET("/jobs/employee/{data}")
     fun getAllJobsForEmployee(@Path("data") jsonString: String): Call<MutableList<Job>>
 
-    @GET("/job/tasks/{data}")
-    fun getTasksForJob(@Path("data") jsonString: String): Call<MutableList<Task>>
+    @GET("/job/tasks/completed/{data}")
+    fun getTasksForJobComplete(@Path("data") jsonString: String): Call<MutableList<Task>>
+
+    @GET("/job/tasks/incomplete/{data}")
+    fun getTasksForJobIncomplete(@Path("data") jsonString: String): Call<MutableList<Task>>
 
     @GET("/employees/names")
     fun getEmployeeNames(): Call<MutableList<Employee>>
@@ -29,4 +32,10 @@ interface APIInterface {
 
     @POST("/job/tasks/add")
     fun addTask(@Body json: JsonObject): Call<PostResponse>
+
+    @POST("/job/task/mark-as-complete")
+    fun markTaskAsComplete(@Body json: JsonObject): Call<PostResponse>
+
+    @POST("/job/task/mark-as-incomplete")
+    fun markTaskAsIncomplete(@Body json: JsonObject): Call<PostResponse>
 }

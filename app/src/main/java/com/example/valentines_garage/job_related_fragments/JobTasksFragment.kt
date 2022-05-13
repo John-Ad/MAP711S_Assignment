@@ -7,9 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import android.widget.AdapterView.OnItemSelectedListener
 import com.example.valentines_garage.JobFragment
 import com.example.valentines_garage.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.navigation.NavigationBarView
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
@@ -48,8 +50,9 @@ class JobTasksFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
+        initSpinners()
         setListViewItemClickListener()
-        getTasksData()
+        getTasksData(false)
 
         if (State.getInstance().getUserType() == State.USER_ADMIN) {
             initButtons()
@@ -81,13 +84,44 @@ class JobTasksFragment : Fragment() {
         }
     }
 
+    private fun initSpinners() {
+
+
+        // init task view spinner
+        val taskViewOpts: ArrayList<String> = arrayListOf("Incomplete", "Completed")
+        var taskViewAdapter =
+            ArrayAdapter<String>(
+                requireContext(),
+                android.R.layout.simple_spinner_item,
+                taskViewOpts
+            )
+        val taskViewSpinner = requireView().findViewById<Spinner>(R.id.spnr_task_view)
+        taskViewSpinner.adapter = taskViewAdapter
+        taskViewSpinner.onItemSelectedListener = object : OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                getTasksData(position == 1)  // position 1 means completed
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                parent!!.setSelection(0)
+            }
+
+        }
+
+    }
+
     //----   INIT EMPLOYEE   ----
     private fun initEmployee() {
         requireView().findViewById<FloatingActionButton>(R.id.fab_add_task).visibility = View.GONE
     }
 
     //----   GET TASKS DATA   ----
-    private fun getTasksData() {
+    private fun getTasksData(completed: Boolean) {
         // show that data is loading
         setLoading(true)
 
@@ -100,7 +134,10 @@ class JobTasksFragment : Fragment() {
 
         // get data from server
         val apiInterface: APIInterface = APIClient.getInstance().create(APIInterface::class.java)
-        val call: Call<MutableList<Task>> = apiInterface.getTasksForJob(jsonData.toString())
+        val call: Call<MutableList<Task>> =
+            if (!completed) apiInterface.getTasksForJobIncomplete(jsonData.toString()) else apiInterface.getTasksForJobComplete(
+                jsonData.toString()
+            )
 
         call.enqueue(object : Callback<MutableList<Task>> {
             override fun onResponse(

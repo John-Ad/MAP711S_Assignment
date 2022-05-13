@@ -67,6 +67,10 @@ class Task() : Parcelable {
         return this.completed == 1
     }
 
+    fun setCompleted(completed: Int) {
+        this.completed = completed
+    }
+
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(taskID)
         parcel.writeString(name)
