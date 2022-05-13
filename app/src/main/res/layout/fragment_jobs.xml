@@ -46,33 +46,33 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="20"
+                    android:gravity="center_horizontal"
                     android:text="ID"
-                    android:textAlignment="center"
-                    android:gravity="center_horizontal" />
+                    android:textAlignment="center" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="36"
+                    android:gravity="center_horizontal"
                     android:text="Name"
-                    android:textAlignment="center"
-                    android:gravity="center_horizontal" />
+                    android:textAlignment="center" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="22"
+                    android:gravity="center_horizontal"
                     android:text="Due"
-                    android:textAlignment="center"
-                    android:gravity="center_horizontal" />
+                    android:textAlignment="center" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="22"
+                    android:gravity="center_horizontal"
                     android:text="Added"
-                    android:textAlignment="center"
-                    android:gravity="center_horizontal" />
+                    android:textAlignment="center" />
             </TableRow>
         </TableLayout>
 
@@ -87,27 +87,24 @@
             android:id="@+id/prg_jobs"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_marginTop="20dp"
             android:layout_gravity="center_horizontal|center_vertical"
-             />
+            android:layout_marginTop="20dp" />
 
         <ListView
             android:id="@+id/list_jobs"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
 
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_add_run"
+        android:id="@+id/fab_add_job"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         android:backgroundTint="@color/button_color"
         android:src="@drawable/ic_baseline_add_24" />
-
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -42,13 +42,13 @@ class JobsFragment : Fragment() {
     }
 
     //----   SET BUTTON LISTENERS   ----
-    private fun setButtonListeners(){
+    private fun setButtonListeners() {
 
         // set FAB listener
-        val view:View=requireView()
-        view.findViewById<FloatingActionButton>(R.id.fab_add_run).setOnClickListener{
+        val view: View = requireView()
+        view.findViewById<FloatingActionButton>(R.id.fab_add_job).setOnClickListener {
             val ft = requireActivity().supportFragmentManager.beginTransaction()
-            ft.replace(R.id.content_frame, JobAddFragment(),null)
+            ft.replace(R.id.content_frame, JobAddFragment(), null)
             ft.addToBackStack(null)
             ft.commit()
         }

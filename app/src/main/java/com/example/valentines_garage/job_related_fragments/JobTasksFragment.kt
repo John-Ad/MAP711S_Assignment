@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.*
 import com.example.valentines_garage.JobFragment
 import com.example.valentines_garage.R
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
@@ -48,6 +49,7 @@ class JobTasksFragment : Fragment() {
 
         setListViewItemClickListener()
         getTasksData()
+        initButtons()
     }
 
     override fun onDestroy() {
@@ -55,6 +57,22 @@ class JobTasksFragment : Fragment() {
 
         Log.v("FRAG DESTROYED", "Job Tasks Fragment")
 
+    }
+
+    private fun initButtons() {
+        // set FAB listener
+        val view: View = requireView()
+        view.findViewById<FloatingActionButton>(R.id.fab_add_task).setOnClickListener {
+            var bundle = Bundle()
+            bundle.putInt(JobFragment.JOB, job!!.getJobID().toInt())
+            val taskAddFragment = TaskAddFragment()
+            taskAddFragment.arguments = bundle
+
+            val ft = requireActivity().supportFragmentManager.beginTransaction()
+            ft.replace(R.id.content_frame, taskAddFragment, null)
+            ft.addToBackStack(null)
+            ft.commit()
+        }
     }
 
     //----   GET TASKS DATA   ----

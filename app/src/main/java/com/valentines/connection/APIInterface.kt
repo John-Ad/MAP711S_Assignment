@@ -20,4 +20,7 @@ interface APIInterface {
 
     @POST("/jobs/add")
     fun addJob(@Body json: JsonObject): Call<PostResponse>
+
+    @POST("/job/tasks/add")
+    fun addTask(@Body json: JsonObject): Call<PostResponse>
 }
