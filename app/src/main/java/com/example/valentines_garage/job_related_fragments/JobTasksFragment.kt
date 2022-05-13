@@ -15,6 +15,7 @@ import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
 import com.valentines.connection.APIClient
 import com.valentines.connection.APIInterface
+import com.valentines.connection.State
 import com.valentines.connection.adapters.TasksListAdapter
 import com.valentines.connection.models.Job
 import com.valentines.connection.models.Task
@@ -49,7 +50,12 @@ class JobTasksFragment : Fragment() {
 
         setListViewItemClickListener()
         getTasksData()
-        initButtons()
+
+        if (State.getInstance().getUserType() == State.USER_ADMIN) {
+            initButtons()
+        } else {
+            initEmployee()
+        }
     }
 
     override fun onDestroy() {
@@ -73,6 +79,11 @@ class JobTasksFragment : Fragment() {
             ft.addToBackStack(null)
             ft.commit()
         }
+    }
+
+    //----   INIT EMPLOYEE   ----
+    private fun initEmployee() {
+        requireView().findViewById<FloatingActionButton>(R.id.fab_add_task).visibility = View.GONE
     }
 
     //----   GET TASKS DATA   ----

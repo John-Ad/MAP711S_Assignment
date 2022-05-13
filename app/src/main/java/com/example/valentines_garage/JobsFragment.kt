@@ -9,8 +9,10 @@ import android.view.ViewGroup
 import android.widget.*
 import com.example.valentines_garage.job_related_fragments.JobAddFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.gson.JsonObject
 import com.valentines.connection.APIClient
 import com.valentines.connection.APIInterface
+import com.valentines.connection.State
 import com.valentines.connection.adapters.JobsListAdapter
 import com.valentines.connection.models.Job
 import retrofit2.Call
@@ -18,8 +20,6 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class JobsFragment : Fragment() {
-
-    //
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,13 +35,27 @@ class JobsFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         init()
+        if (State.getInstance().getUserType() == State.USER_ADMIN) initAdmin() else initEmployee()
     }
 
-    //----   INIT   ----
     private fun init() {
-        getJobsData()
         setListViewItemClickListener()
+    }
+
+    //----   INIT ADMIN   ----
+    private fun initAdmin() {
+        getJobsDataAdmin()
         setButtonListeners()
+    }
+
+    //----   INIT EMPLOYEE   ----
+    private fun initEmployee() {
+
+        // hide FAB
+        requireView().findViewById<FloatingActionButton>(R.id.fab_add_job).visibility = View.GONE
+
+        // get jobs for employee
+        getJobsDataEmployee()
     }
 
     //----   SET BUTTON LISTENERS   ----
@@ -57,14 +71,53 @@ class JobsFragment : Fragment() {
         }
     }
 
-    //----   GET JOBS DATA   ----
-    private fun getJobsData() {
+    //----   GET JOBS DATA ADMIN   ----
+    private fun getJobsDataAdmin() {
         // show that data is loading
         setLoading(true)
 
         // get data from server
         val apiInterface: APIInterface = APIClient.getInstance().create(APIInterface::class.java)
         val call: Call<MutableList<Job>> = apiInterface.getAllJobs()
+        call.enqueue(object : Callback<MutableList<Job>> {
+            override fun onResponse(
+                call: Call<MutableList<Job>>,
+                response: Response<MutableList<Job>>
+            ) {
+                var jobs: MutableList<Job>? = response.body()
+
+                if (jobs != null) {
+                    setListViewData(jobs)
+                } else {
+                    showToast("Failed to load data, try again later")
+                }
+
+                setLoading(false)
+            }
+
+            override fun onFailure(call: Call<MutableList<Job>>, t: Throwable) {
+                setLoading(false)
+                showToast("Failed to load data, try again later")
+                call.cancel()
+            }
+
+        })
+    }
+
+    //----   GET JOBS DATA EMPLOYEE   ----
+    private fun getJobsDataEmployee() {
+        // show that data is loading
+        setLoading(true)
+
+        // setup json data
+        var jsonObject = JsonObject()
+        jsonObject.addProperty("username", State.getInstance().getUsername())
+
+        Log.v("Data-Request", jsonObject.toString())
+
+        // get data from server
+        val apiInterface: APIInterface = APIClient.getInstance().create(APIInterface::class.java)
+        val call: Call<MutableList<Job>> = apiInterface.getAllJobsForEmployee(jsonObject.toString())
         call.enqueue(object : Callback<MutableList<Job>> {
             override fun onResponse(
                 call: Call<MutableList<Job>>,

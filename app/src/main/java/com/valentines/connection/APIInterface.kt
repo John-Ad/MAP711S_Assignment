@@ -9,6 +9,9 @@ interface APIInterface {
     @GET("/jobs/all")
     fun getAllJobs(): Call<MutableList<Job>>
 
+    @GET("/jobs/employee/{data}")
+    fun getAllJobsForEmployee(@Path("data") jsonString: String): Call<MutableList<Job>>
+
     @GET("/job/tasks/{data}")
     fun getTasksForJob(@Path("data") jsonString: String): Call<MutableList<Task>>
 

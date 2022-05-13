@@ -123,11 +123,13 @@ class LoginActivity : AppCompatActivity() {
     */
     private fun gotoJobsPageAdmin() {
         State.getInstance().setUserType(1)
+        State.getInstance().setUsername("john")
         gotoJobsPage()
     }
 
     private fun gotoJobsPageEmployee() {
         State.getInstance().setUserType(2)
+        State.getInstance().setUsername("Fritz")
         gotoJobsPage()
     }
 
