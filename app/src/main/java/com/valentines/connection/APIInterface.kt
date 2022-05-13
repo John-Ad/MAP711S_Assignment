@@ -18,6 +18,9 @@ interface APIInterface {
     @GET("/clients/details")
     fun getClientDetails(): Call<MutableList<ClientDetails>>
 
+    @POST("/login")
+    fun login(@Body json: JsonObject): Call<PostResponse>
+
     @POST("/jobs/add")
     fun addJob(@Body json: JsonObject): Call<PostResponse>
 

@@ -18,6 +18,9 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class JobsFragment : Fragment() {
+
+    //
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
