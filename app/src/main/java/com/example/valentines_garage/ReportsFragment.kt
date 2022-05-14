@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import com.example.valentines_garage.report_fragments.UserReportFragment
 import com.valentines.connection.APIClient
 import com.valentines.connection.APIInterface
 import com.valentines.connection.adapters.JobsListAdapter
@@ -97,15 +98,15 @@ class ReportsFragment : Fragment() {
                 val string: String = (adapterView.getItemAtPosition(index) as String)
 
                 var bundle: Bundle = Bundle()
-                bundle.putString("string", string)
+                bundle.putString("username", string)
 
-//                val jobFragment: JobFragment = JobFragment()
-//                jobFragment.arguments = bundle
-//
-//                val ft = requireActivity().supportFragmentManager.beginTransaction()
-//                ft.replace(R.id.content_frame, jobFragment, job.getJobID())
-//                ft.addToBackStack(job.getJobID())
-//                ft.commit()
+                val fragment = UserReportFragment()
+                fragment.arguments = bundle
+
+                val ft = requireActivity().supportFragmentManager.beginTransaction()
+                ft.replace(R.id.content_frame, fragment, null)
+                ft.addToBackStack(null)
+                ft.commit()
             }
     }
 
