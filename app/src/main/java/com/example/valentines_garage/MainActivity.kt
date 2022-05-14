@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         when (id) {
             R.id.nav_jobs -> fragment = JobsFragment()
             R.id.nav_users -> fragment = JobsFragment()
-            R.id.nav_reports -> fragment = JobsFragment()
+            R.id.nav_reports -> fragment = ReportsFragment()
         }
 
         if (fragment != null) {
