@@ -51,6 +51,12 @@ interface APIInterface {
     @POST("/job/tasks/add")
     fun addTask(@Body json: JsonObject): Call<PostResponse>
 
+    @POST("/jobs/delete")
+    fun deleteJob(@Body json: JsonObject): Call<PostResponse>
+
+    @POST("/job/tasks/delete")
+    fun deleteTask(@Body json: JsonObject): Call<PostResponse>
+
     @POST("/job/task/mark-as-complete")
     fun markTaskAsComplete(@Body json: JsonObject): Call<PostResponse>
 

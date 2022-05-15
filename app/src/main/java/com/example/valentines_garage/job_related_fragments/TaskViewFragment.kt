@@ -67,9 +67,18 @@ class TaskViewFragment : Fragment() {
     private fun initAdmin() {
         // hide if user is admin
         requireView().findViewById<Button>(R.id.btn_task_edit_mark_as_done).visibility = View.GONE
+
+
+        requireView().findViewById<Button>(R.id.btn_task_delete).setOnClickListener {
+            deleteTask()
+        }
     }
 
     private fun initEmployee() {
+
+        requireView().findViewById<Button>(R.id.btn_task_edit).visibility = View.GONE
+        requireView().findViewById<Button>(R.id.btn_task_delete).visibility = View.GONE
+
         // hide if employee is not assigned task
         if (!State.getInstance().getUsername().equals(this.task!!.getUsername())) {
             requireView().findViewById<Button>(R.id.btn_task_edit_mark_as_done).visibility =
@@ -146,6 +155,37 @@ class TaskViewFragment : Fragment() {
         view.findViewById<TextView>(R.id.txt_task_user).text = task!!.getUsername()
 //        view.findViewById<TextView>(R.id.txt_task_completed).text =
 //            if (task!!.getCompleted() == 1) "Completed" else "incomplete"
+    }
+
+    private fun deleteTask() {
+        var jsonObject = JsonObject()
+        jsonObject.addProperty("taskID", this.task!!.getTaskID())
+
+        val apiInterface: APIInterface = APIClient.getInstance().create(APIInterface::class.java)
+        val call = apiInterface.deleteTask(jsonObject)
+
+        call.enqueue(object : Callback<PostResponse> {
+            override fun onResponse(
+                call: Call<PostResponse>,
+                response: Response<PostResponse>
+            ) {
+                var res: PostResponse? = response.body()
+
+                if (res != null) {
+                    showToast(res.getStatus())
+                    goBack()
+                } else {
+                    showToast("Failed to delete task: " + response.body().toString())
+                    setLoading(false)
+                }
+            }
+
+            override fun onFailure(call: Call<PostResponse>, t: Throwable) {
+                setLoading(false)
+                showToast("Failed to add job, try again later" + t.message)
+                call.cancel()
+            }
+        })
     }
 
     //----   SET LOADING   ----

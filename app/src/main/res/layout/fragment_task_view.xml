@@ -51,6 +51,23 @@
         android:layout_gravity="center_horizontal|center_vertical" />
 
     <Button
+        android:id="@+id/btn_task_edit"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:backgroundTint="#8888FF"
+        android:text="Edit" />
+
+    <Button
+        android:id="@+id/btn_task_delete"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:backgroundTint="#FF8888"
+        android:text="Delete" />
+
+
+    <Button
         android:id="@+id/btn_task_edit_mark_as_done"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
