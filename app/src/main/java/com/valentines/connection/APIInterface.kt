@@ -24,6 +24,11 @@ interface APIInterface {
     @GET("/clients/details")
     fun getClientDetails(): Call<MutableList<ClientDetails>>
 
+    @GET("/clients/all")
+    fun getAllClients(): Call<MutableList<Client>>
+
+    @GET("/client/cars/all")
+    fun getAllClientCars(): Call<MutableList<Client>>
 
     @GET("/employee/tasks/incomplete/{data}")
     fun getIncompleteTasksForEmployee(@Path("data") jsonString: String): Call<MutableList<Task>>
@@ -51,6 +56,9 @@ interface APIInterface {
     @POST("/job/tasks/add")
     fun addTask(@Body json: JsonObject): Call<PostResponse>
 
+    @POST("/clients/add")
+    fun addClient(@Body json: JsonObject): Call<PostResponse>
+
     @POST("/jobs/delete")
     fun deleteJob(@Body json: JsonObject): Call<PostResponse>
 
@@ -62,6 +70,7 @@ interface APIInterface {
 
     @POST("/job/task/mark-as-incomplete")
     fun markTaskAsIncomplete(@Body json: JsonObject): Call<PostResponse>
+
 
 
 }
