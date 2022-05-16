@@ -18,6 +18,9 @@ class Task() : Parcelable {
     @SerializedName("Username")
     private var username: String = ""
 
+    @SerializedName("Comments")
+    private var comments: String = ""
+
     @SerializedName("Completed")
     private var completed: Int = 0
 
@@ -26,12 +29,14 @@ class Task() : Parcelable {
         name: String,
         description: String,
         username: String,
+        comments: String,
         completed: Int
     ) : this() {
         this.taskID = taskID
         this.name = name
         this.description = description
         this.username = username
+        this.comments = comments
         this.completed = completed
     }
 
@@ -40,6 +45,7 @@ class Task() : Parcelable {
         name = parcel.readString()!!
         description = parcel.readString()!!
         username = parcel.readString()!!
+        comments = parcel.readString()!!
         completed = parcel.readInt()
     }
 
@@ -57,6 +63,10 @@ class Task() : Parcelable {
 
     public fun getUsername(): String {
         return this.username
+    }
+
+    public fun getComments(): String {
+        return this.comments
     }
 
     public fun getCompleted(): Int {
