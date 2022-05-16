@@ -44,13 +44,15 @@ class ClientsFragment : Fragment() {
             requireView().findViewById<FloatingActionButton>(R.id.fab_add_client)
                 .setOnClickListener {
 
+
                     val ft = requireActivity().supportFragmentManager.beginTransaction()
                     ft.replace(R.id.content_frame, ClientAddFragment(), null)
                     ft.addToBackStack(null)
                     ft.commit()
                 }
         } else {
-            requireView().findViewById<FloatingActionButton>(R.id.fab_add_client).visibility = View.GONE
+            requireView().findViewById<FloatingActionButton>(R.id.fab_add_client).visibility =
+                View.GONE
         }
 
         getClientsData()
@@ -109,7 +111,7 @@ class ClientsFragment : Fragment() {
             AdapterView.OnItemClickListener { adapterView, view, index, id ->
 
                 var bundle: Bundle = Bundle()
-                bundle.putInt("clientID", clients[index].clientID)
+                bundle.putParcelable("client", clients[index])
 
                 val fragment = ClientViewFragment()
                 fragment.arguments = bundle
