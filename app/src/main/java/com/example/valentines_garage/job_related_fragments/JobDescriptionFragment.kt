@@ -60,6 +60,20 @@ class JobDescriptionFragment : Fragment() {
         requireView().findViewById<Button>(R.id.btn_job_delete).setOnClickListener {
             deleteJob()
         }
+
+        requireView().findViewById<Button>(R.id.btn_job_edit).setOnClickListener {
+            val fragment = JobAddFragment()
+
+            val bundle = Bundle()
+            bundle.putParcelable("job", this.job)
+
+            fragment.arguments = bundle
+
+            val ft = requireActivity().supportFragmentManager.beginTransaction()
+            ft.replace(R.id.content_frame, fragment, null)
+            ft.addToBackStack(null)
+            ft.commit()
+        }
     }
 
     private fun setData() {

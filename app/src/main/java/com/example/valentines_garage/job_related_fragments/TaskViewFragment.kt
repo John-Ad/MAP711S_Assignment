@@ -75,6 +75,20 @@ class TaskViewFragment : Fragment() {
         requireView().findViewById<Button>(R.id.btn_task_delete).setOnClickListener {
             deleteTask()
         }
+
+        requireView().findViewById<Button>(R.id.btn_task_edit).setOnClickListener {
+            val fragment = TaskAddFragment()
+
+            val bundle = Bundle()
+            bundle.putParcelable("task", this.task)
+
+            fragment.arguments = bundle
+
+            val ft = requireActivity().supportFragmentManager.beginTransaction()
+            ft.replace(R.id.content_frame, fragment, null)
+            ft.addToBackStack(null)
+            ft.commit()
+        }
     }
 
     private fun initEmployee() {
