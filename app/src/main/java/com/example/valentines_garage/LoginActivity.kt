@@ -11,7 +11,6 @@ import android.widget.Toast
 import com.google.gson.JsonObject
 import com.valentines.connection.APIClient
 import com.valentines.connection.APIInterface
-import com.valentines.connection.Connection
 import com.valentines.connection.State
 import com.valentines.connection.models.PostResponse
 import retrofit2.Call
@@ -35,15 +34,15 @@ class LoginActivity : AppCompatActivity() {
             getUserInput()
         }
 
-        val gotoJobsAdminButton: Button = findViewById<Button>(R.id.btn_goto_jobs)
-        gotoJobsAdminButton.setOnClickListener {
-            gotoJobsPageAdmin()
-        }
-
-        val gotoJobsEmpButton: Button = findViewById<Button>(R.id.btn_goto_jobs_emp)
-        gotoJobsEmpButton.setOnClickListener {
-            gotoJobsPageEmployee()
-        }
+//        val gotoJobsAdminButton: Button = findViewById<Button>(R.id.btn_goto_jobs)
+//        gotoJobsAdminButton.setOnClickListener {
+//            gotoJobsPageAdmin()
+//        }
+//
+//        val gotoJobsEmpButton: Button = findViewById<Button>(R.id.btn_goto_jobs_emp)
+//        gotoJobsEmpButton.setOnClickListener {
+//            gotoJobsPageEmployee()
+//        }
     }
 
     /*

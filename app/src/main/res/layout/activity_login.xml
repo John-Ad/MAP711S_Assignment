@@ -85,27 +85,27 @@
             android:textColor="@color/white"
             app:backgroundTint="@color/button_color" />
 
-        <Button
-            android:id="@+id/btn_goto_jobs"
-            android:layout_width="100dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:background="@color/button_color"
-            android:text="Jobs Admin"
-            android:textColor="@color/white"
-            app:backgroundTint="@color/button_color" />
+        <!--        <Button-->
+        <!--            android:id="@+id/btn_goto_jobs"-->
+        <!--            android:layout_width="100dp"-->
+        <!--            android:layout_height="40dp"-->
+        <!--            android:layout_gravity="center"-->
+        <!--            android:layout_marginTop="10dp"-->
+        <!--            android:background="@color/button_color"-->
+        <!--            android:text="Jobs Admin"-->
+        <!--            android:textColor="@color/white"-->
+        <!--            app:backgroundTint="@color/button_color" />-->
 
-        <Button
-            android:id="@+id/btn_goto_jobs_emp"
-            android:layout_width="100dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:background="@color/button_color"
-            android:text="Jobs Employee"
-            android:textColor="@color/white"
-            app:backgroundTint="@color/button_color" />
+        <!--        <Button-->
+        <!--            android:id="@+id/btn_goto_jobs_emp"-->
+        <!--            android:layout_width="100dp"-->
+        <!--            android:layout_height="40dp"-->
+        <!--            android:layout_gravity="center"-->
+        <!--            android:layout_marginTop="10dp"-->
+        <!--            android:background="@color/button_color"-->
+        <!--            android:text="Jobs Employee"-->
+        <!--            android:textColor="@color/white"-->
+        <!--            app:backgroundTint="@color/button_color" />-->
     </LinearLayout>
 
 
