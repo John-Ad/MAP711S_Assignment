@@ -128,6 +128,8 @@ class UserReportFragment : Fragment() {
         // show that data is loading
         setLoading(true)
 
+        showNoRecordsAvailable(false)
+
         // create data to send to with request
         var jsonData: JsonObject = JsonObject()
         jsonData.addProperty("username", this.username)
@@ -149,10 +151,14 @@ class UserReportFragment : Fragment() {
 
                 if (tasks != null) {
                     setListViewData(tasks)
+                    if(tasks.size==0){
+                        showNoRecordsAvailable(true)
+                    }
                 } else {
                     showToast(
                         "success but failure: " + response.message()
                     )
+                    showNoRecordsAvailable(true)
                 }
 
                 setLoading(false)
@@ -206,5 +212,11 @@ class UserReportFragment : Fragment() {
     //----   SHOW TOAST   ----
     private fun showToast(message: String) {
         Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+    }
+
+    //----   SHOW NO RECORDS AVAILABLE   ----
+    private fun showNoRecordsAvailable(show: Boolean) {
+        requireView().findViewById<TextView>(R.id.txt_no_items).visibility =
+            if (show) View.VISIBLE else View.GONE
     }
 }

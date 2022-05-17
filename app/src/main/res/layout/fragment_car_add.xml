@@ -17,7 +17,8 @@
             android:gravity="center_horizontal"
             android:text="Add Car:"
             android:textAlignment="center"
-            android:textSize="20sp" />
+            android:textSize="17sp"
+            android:textStyle="bold" />
 
         <View
             android:id="@+id/view"
@@ -29,9 +30,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:text="VIN:"
-            android:textSize="20sp" />
+            android:textSize="12sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/edt_car_vin"
@@ -41,20 +43,23 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:text="Brand:"
-            android:textSize="20sp" />
+            android:textSize="12sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/edt_car_brand"
             android:layout_width="230dp"
             android:layout_height="wrap_content" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:text="Name:"
-            android:textSize="20sp" />
+            android:textSize="12sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/edt_car_name"
@@ -64,9 +69,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:text="Color:"
-            android:textSize="20sp" />
+            android:textSize="12sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/edt_car_color"
