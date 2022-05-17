@@ -213,7 +213,6 @@ class JobTasksFragment : Fragment() {
         var adapter = TasksListAdapter(requireContext(), R.layout.task_record, data)
         val listView: ListView = requireView().findViewById(R.id.list_tasks)
         listView.adapter = adapter
-        Log.v("some: ", "shit")
     }
 
     //----   SHOW TOAST   ----

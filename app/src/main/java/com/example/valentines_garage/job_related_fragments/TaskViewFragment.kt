@@ -123,15 +123,7 @@ class TaskViewFragment : Fragment() {
         if (this.task!!.isCompleted()) {
             requireView().findViewById<EditText>(R.id.edt_task_comments).inputType =
                 InputType.TYPE_NULL
-        } else {
-
-
-            Log.v(
-                "ahhg",
-                requireView().findViewById<EditText>(R.id.edt_task_comments).lineCount.toString()
-            )
         }
-
 
 
         requireView().findViewById<Button>(R.id.btn_task_edit_mark_as_done).text =
