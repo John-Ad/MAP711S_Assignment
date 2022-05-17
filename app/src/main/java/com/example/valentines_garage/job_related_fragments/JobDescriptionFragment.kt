@@ -1,12 +1,14 @@
 package com.example.valentines_garage.job_related_fragments
 
 import android.os.Bundle
+import android.text.Html
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
 import com.example.valentines_garage.JobFragment
 import com.example.valentines_garage.JobsFragment
@@ -45,6 +47,7 @@ class JobDescriptionFragment : Fragment() {
 
     private fun init() {
         setLoading(false)
+        setData()
         if (State.getInstance().getUserType() == State.USER_ADMIN) initAdmin() else initEmployee()
     }
 
@@ -57,6 +60,21 @@ class JobDescriptionFragment : Fragment() {
         requireView().findViewById<Button>(R.id.btn_job_delete).setOnClickListener {
             deleteJob()
         }
+    }
+
+    private fun setData() {
+        val view = requireView()
+        view.findViewById<TextView>(R.id.txt_job_name).text =
+            Html.fromHtml(resources.getString(R.string.job_name, job!!.getName()))
+        view.findViewById<TextView>(R.id.txt_job_desc).text =
+            Html.fromHtml(resources.getString(R.string.job_desc, job!!.getDescription()))
+        view.findViewById<TextView>(R.id.txt_job_due).text =
+            Html.fromHtml(
+                resources.getString(
+                    R.string.job_due,
+                    job!!.getCompletionDate().subSequence(0, 10)
+                )
+            )
     }
 
     private fun deleteJob() {

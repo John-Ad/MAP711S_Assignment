@@ -14,6 +14,17 @@
 
     <string name="nav_open_drawer">Open navigation drawer</string>
     <string name="nav_close_drawer">Close navigation drawer</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--  TASK VIEW TEMPLATES  -->
+    <string name="task_view_name"><![CDATA[<b>Name:  </b> %s]]></string>
+    <string name="task_view_desc"><![CDATA[<b>Description:  </b> %s]]></string>
+    <string name="task_view_assigned"><![CDATA[<b>Assigned to:  </b> %s]]></string>
+    <string name="task_view_comments"><![CDATA[<b>Comments:  </b> %s]]></string>
+
+    <!--  JOB DESCRIPTION TEMPLATES  -->
+    <string name="job_name"><![CDATA[<b>Name:  </b> %s]]></string>
+    <string name="job_desc"><![CDATA[<b>Description:  </b> %s]]></string>
+    <string name="job_due"><![CDATA[<b>Due:  </b> %s]]></string>
 </resources>

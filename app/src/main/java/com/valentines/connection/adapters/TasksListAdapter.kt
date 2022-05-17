@@ -36,7 +36,5 @@ class TasksListAdapter(context: Context, resource: Int, objects: MutableList<Tas
     private fun setData(task: Task, view: View, position: Int) {
         view.findViewById<TextView>(R.id.txt_task_name).text = task.getName()
         view.findViewById<TextView>(R.id.txt_task_user).text = task.getUsername()
-        view.findViewById<TextView>(R.id.txt_task_completed).text =
-            if (task.isCompleted()) "yes" else "no"
     }
 }
