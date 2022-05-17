@@ -10,6 +10,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import com.example.valentines_garage.client_fragments.ClientsFragment
 import com.google.android.material.navigation.NavigationView
 
 
@@ -51,8 +52,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         * */
         when (id) {
             R.id.nav_jobs -> fragment = JobsFragment()
-            R.id.nav_users -> fragment = JobsFragment()
-            R.id.nav_reports -> fragment = JobsFragment()
+            R.id.nav_clients -> fragment = ClientsFragment()
+            R.id.nav_reports -> fragment = ReportsFragment()
         }
 
         if (fragment != null) {

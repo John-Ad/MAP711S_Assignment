@@ -24,6 +24,29 @@ interface APIInterface {
     @GET("/clients/details")
     fun getClientDetails(): Call<MutableList<ClientDetails>>
 
+    @GET("/clients/all")
+    fun getAllClients(): Call<MutableList<Client>>
+
+    @GET("/client/cars/all/{data}")
+    fun getAllClientCars(@Path("data") jsonString: String): Call<MutableList<Car>>
+
+    @GET("/employee/tasks/incomplete/{data}")
+    fun getIncompleteTasksForEmployee(@Path("data") jsonString: String): Call<MutableList<Task>>
+
+    @GET("/employee/tasks/complete/day/{data}")
+    fun getCompleteTasksForEmployeeByDay(@Path("data") jsonString: String): Call<MutableList<Task>>
+
+    @GET("/employee/tasks/complete/month/{data}")
+    fun getCompleteTasksForEmployeeByMonth(@Path("data") jsonString: String): Call<MutableList<Task>>
+
+
+    @GET("/reports/employee/day/{data}")
+    fun getTaskReportForEmployeeByDay(@Path("data") jsonString: String): Call<UserOverview>
+
+    @GET("/reports/employee/month/{data}")
+    fun getTaskReportForEmployeeByMonth(@Path("data") jsonString: String): Call<UserOverview>
+
+
     @POST("/login")
     fun login(@Body json: JsonObject): Call<PostResponse>
 
@@ -33,9 +56,23 @@ interface APIInterface {
     @POST("/job/tasks/add")
     fun addTask(@Body json: JsonObject): Call<PostResponse>
 
+    @POST("/clients/add")
+    fun addClient(@Body json: JsonObject): Call<PostResponse>
+
+    @POST("/client/cars/add")
+    fun addCar(@Body json: JsonObject): Call<PostResponse>
+
+    @POST("/jobs/delete")
+    fun deleteJob(@Body json: JsonObject): Call<PostResponse>
+
+    @POST("/job/tasks/delete")
+    fun deleteTask(@Body json: JsonObject): Call<PostResponse>
+
     @POST("/job/task/mark-as-complete")
     fun markTaskAsComplete(@Body json: JsonObject): Call<PostResponse>
 
     @POST("/job/task/mark-as-incomplete")
     fun markTaskAsIncomplete(@Body json: JsonObject): Call<PostResponse>
+
+
 }

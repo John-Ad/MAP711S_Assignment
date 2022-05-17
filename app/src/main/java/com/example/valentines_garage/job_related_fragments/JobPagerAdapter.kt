@@ -22,7 +22,10 @@ class JobPagerAdapter(fm: FragmentManager, job: Job) : FragmentPagerAdapter(fm) 
 
         when (position) {
             0 -> {
-                return JobDescriptionFragment()
+                val jobDescriptionFragment = JobDescriptionFragment()
+                jobDescriptionFragment.arguments = bundle
+
+                return jobDescriptionFragment
             }
             1 -> {
                 val jobTasksFragment = JobTasksFragment()
