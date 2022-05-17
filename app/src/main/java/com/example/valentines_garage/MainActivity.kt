@@ -54,6 +54,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_jobs -> fragment = JobsFragment()
             R.id.nav_clients -> fragment = ClientsFragment()
             R.id.nav_reports -> fragment = ReportsFragment()
+            R.id.nav_logout -> logout()
         }
 
         if (fragment != null) {
@@ -77,5 +78,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         } else {
             super.onBackPressed()
         }
+    }
+
+    private fun logout() {
+        finish()
     }
 }

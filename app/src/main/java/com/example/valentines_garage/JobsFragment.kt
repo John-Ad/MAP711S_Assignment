@@ -40,6 +40,7 @@ class JobsFragment : Fragment() {
 
     private fun init() {
         setListViewItemClickListener()
+        showNoRecordsAvailable(false)
     }
 
     //----   INIT ADMIN   ----
@@ -76,6 +77,8 @@ class JobsFragment : Fragment() {
         // show that data is loading
         setLoading(true)
 
+        showNoRecordsAvailable(false)
+
         // get data from server
         val apiInterface: APIInterface = APIClient.getInstance().create(APIInterface::class.java)
         val call: Call<MutableList<Job>> = apiInterface.getAllJobs()
@@ -87,9 +90,14 @@ class JobsFragment : Fragment() {
                 var jobs: MutableList<Job>? = response.body()
 
                 if (jobs != null) {
-                    setListViewData(jobs)
+                    if (jobs.size > 0) {
+                        setListViewData(jobs)
+                    } else {
+                        showNoRecordsAvailable(true)
+                    }
                 } else {
                     showToast("Failed to load data, try again later")
+                    showNoRecordsAvailable(true)
                 }
 
                 setLoading(false)
@@ -97,6 +105,7 @@ class JobsFragment : Fragment() {
 
             override fun onFailure(call: Call<MutableList<Job>>, t: Throwable) {
                 setLoading(false)
+                showNoRecordsAvailable(true)
                 showToast("Failed to load data, try again later")
                 call.cancel()
             }
@@ -108,6 +117,8 @@ class JobsFragment : Fragment() {
     private fun getJobsDataEmployee() {
         // show that data is loading
         setLoading(true)
+
+        showNoRecordsAvailable(false)
 
         // setup json data
         var jsonObject = JsonObject()
@@ -126,8 +137,13 @@ class JobsFragment : Fragment() {
                 var jobs: MutableList<Job>? = response.body()
 
                 if (jobs != null) {
-                    setListViewData(jobs)
+                    if (jobs.size > 0) {
+                        setListViewData(jobs)
+                    } else {
+                        showNoRecordsAvailable(true)
+                    }
                 } else {
+                    showNoRecordsAvailable(true)
                     showToast("Failed to load data, try again later")
                 }
 
@@ -136,6 +152,7 @@ class JobsFragment : Fragment() {
 
             override fun onFailure(call: Call<MutableList<Job>>, t: Throwable) {
                 setLoading(false)
+                showNoRecordsAvailable(true)
                 showToast("Failed to load data, try again later")
                 call.cancel()
             }
@@ -182,5 +199,11 @@ class JobsFragment : Fragment() {
     //----   SHOW TOAST   ----
     private fun showToast(message: String) {
         Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+    }
+
+    //----   SHOW NO RECORDS AVAILABLE   ----
+    private fun showNoRecordsAvailable(show: Boolean) {
+        requireView().findViewById<TextView>(R.id.txt_no_items).visibility =
+            if (show) View.VISIBLE else View.GONE
     }
 }

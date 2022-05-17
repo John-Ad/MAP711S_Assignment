@@ -12,4 +12,7 @@
         android:id="@+id/nav_clients"
         android:title="@string/nav_clients" />
 
+    <item
+        android:id="@+id/nav_logout"
+        android:title="@string/nav_logout" />
 </menu>
