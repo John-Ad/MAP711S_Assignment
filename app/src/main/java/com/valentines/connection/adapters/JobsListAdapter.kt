@@ -34,10 +34,10 @@ class JobsListAdapter(context: Context, resource: Int, objects: MutableList<Job>
     }
 
     private fun setData(job: Job, view: View, position: Int) {
-        view.findViewById<TextView>(R.id.txt_job_id).text =
-            (position + 1).toString() // temp, replace with actual id later
+        view.findViewById<TextView>(R.id.txt_job_id).text = job.getJobID()
         view.findViewById<TextView>(R.id.txt_job_name).text = job.getName()
-        view.findViewById<TextView>(R.id.txt_job_due).text = job.getCompletionDate()
-        view.findViewById<TextView>(R.id.txt_job_added).text = job.getDateAdded()
+        view.findViewById<TextView>(R.id.txt_job_due).text =
+            job.getCompletionDate().subSequence(0, 10)
+        view.findViewById<TextView>(R.id.txt_job_added).text = job.getDateAdded().subSequence(0, 10)
     }
 }

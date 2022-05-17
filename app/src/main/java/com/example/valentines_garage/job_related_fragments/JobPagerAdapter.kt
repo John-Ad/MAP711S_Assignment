@@ -12,7 +12,7 @@ class JobPagerAdapter(fm: FragmentManager, job: Job) : FragmentPagerAdapter(fm) 
     val job: Job = job
 
     override fun getCount(): Int {
-        return 3;
+        return 2;
     }
 
     override fun getItem(position: Int): Fragment {
@@ -33,7 +33,6 @@ class JobPagerAdapter(fm: FragmentManager, job: Job) : FragmentPagerAdapter(fm) 
 
                 return jobTasksFragment
             }
-            2 -> return JobUsersFragment()
         }
 
         return JobDescriptionFragment()
@@ -43,7 +42,6 @@ class JobPagerAdapter(fm: FragmentManager, job: Job) : FragmentPagerAdapter(fm) 
         when (position) {
             0 -> return "Overview"
             1 -> return "Tasks"
-            2 -> return "Users"
         }
 
         return null

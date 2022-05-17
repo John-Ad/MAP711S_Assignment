@@ -13,9 +13,11 @@ import com.valentines.connection.APIClient
 import com.valentines.connection.APIInterface
 import com.valentines.connection.models.Employee
 import com.valentines.connection.models.PostResponse
+import com.valentines.connection.models.Task
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.lang.Exception
 import kotlin.collections.ArrayList
 
 
@@ -24,6 +26,10 @@ class TaskAddFragment : Fragment() {
     private var employees: ArrayList<String> = ArrayList()
     private var jobID: Int = 0
 
+
+    private var task: Task? = null
+    private var editing: Boolean = false
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,6 +37,12 @@ class TaskAddFragment : Fragment() {
 
         // get job id
         jobID = requireArguments().getInt(JobFragment.JOB)
+
+        // set editing
+        task = requireArguments().getParcelable("task")
+        if (task != null) {
+            editing = true
+        }
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_task_add, container, false)
@@ -45,6 +57,19 @@ class TaskAddFragment : Fragment() {
     private fun init() {
         getData()
         initButtons()
+
+        if (this.editing) {
+            initEditing()
+        }
+    }
+
+    private fun initEditing() {
+        requireView().findViewById<TextView>(R.id.txt_task_add_title).text = "Edit Task"
+
+
+        requireView().findViewById<EditText>(R.id.edt_task_name).setText(this.task!!.getName())
+        requireView().findViewById<EditText>(R.id.edt_task_desc)
+            .setText(this.task!!.getDescription())
     }
 
     //----   INIT BUTTONS   ----
@@ -72,6 +97,7 @@ class TaskAddFragment : Fragment() {
         // get data from server
         val apiInterface: APIInterface = APIClient.getInstance().create(APIInterface::class.java)
         val call1: Call<MutableList<Employee>> = apiInterface.getEmployeeNames()
+
         call1.enqueue(object : Callback<MutableList<Employee>> {
             override fun onResponse(
                 call: Call<MutableList<Employee>>,
@@ -124,7 +150,13 @@ class TaskAddFragment : Fragment() {
 
         // convert to json
         var jsonData: JsonObject = JsonObject()
-        jsonData.addProperty("Job_ID", this.jobID)
+
+        if (!this.editing) {
+            jsonData.addProperty("Job_ID", this.jobID)
+        } else {
+            jsonData.addProperty("username", this.task!!.getTaskID())
+        }
+
         jsonData.addProperty("Name", name)
         jsonData.addProperty("Description", desc)
         jsonData.addProperty("Username", empUsername)
@@ -142,7 +174,7 @@ class TaskAddFragment : Fragment() {
     //----   ADD TASK   ----
     private fun addTask(data: JsonObject) {
         val apiInterface: APIInterface = APIClient.getInstance().create(APIInterface::class.java)
-        val call = apiInterface.addTask(data)
+        val call = if (!this.editing) apiInterface.addTask(data) else apiInterface.editTask(data)
 
         call.enqueue(object : Callback<PostResponse> {
             override fun onResponse(
@@ -152,7 +184,9 @@ class TaskAddFragment : Fragment() {
                 var res: PostResponse? = response.body()
 
                 if (res != null) {
-                    clearInput()
+                    if (!editing) {
+                        clearInput()
+                    }
                     showToast(res.getStatus())
                 } else {
                     showToast("Failed to add job, try again later" + response.body().toString())

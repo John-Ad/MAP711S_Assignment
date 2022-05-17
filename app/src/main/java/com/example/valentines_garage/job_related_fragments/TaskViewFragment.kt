@@ -1,6 +1,7 @@
 package com.example.valentines_garage.job_related_fragments
 
 import android.os.Bundle
+import android.text.Html
 import android.text.InputType
 import android.text.method.ScrollingMovementMethod
 import android.util.Log
@@ -73,6 +74,20 @@ class TaskViewFragment : Fragment() {
 
         requireView().findViewById<Button>(R.id.btn_task_delete).setOnClickListener {
             deleteTask()
+        }
+
+        requireView().findViewById<Button>(R.id.btn_task_edit).setOnClickListener {
+            val fragment = TaskAddFragment()
+
+            val bundle = Bundle()
+            bundle.putParcelable("task", this.task)
+
+            fragment.arguments = bundle
+
+            val ft = requireActivity().supportFragmentManager.beginTransaction()
+            ft.replace(R.id.content_frame, fragment, null)
+            ft.addToBackStack(null)
+            ft.commit()
         }
     }
 
@@ -178,9 +193,12 @@ class TaskViewFragment : Fragment() {
 
     private fun setData() {
         val view = requireView()
-        view.findViewById<TextView>(R.id.txt_task_name).text = task!!.getName()
-        view.findViewById<TextView>(R.id.txt_task_desc).text = task!!.getDescription()
-        view.findViewById<TextView>(R.id.txt_task_user).text = task!!.getUsername()
+        view.findViewById<TextView>(R.id.txt_task_name).text =
+            Html.fromHtml(resources.getString(R.string.task_view_name, task!!.getName()))
+        view.findViewById<TextView>(R.id.txt_task_desc).text =
+            Html.fromHtml(resources.getString(R.string.task_view_desc, task!!.getDescription()))
+        view.findViewById<TextView>(R.id.txt_task_user).text =
+            Html.fromHtml(resources.getString(R.string.task_view_assigned, task!!.getUsername()))
         view.findViewById<TextView>(R.id.edt_task_comments).text = task!!.getComments()
     }
 
